@@ -16,8 +16,8 @@ export async function GET(req: Request) {
 
     try {
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-        const prompt = `Suggest 10 must-visit destinations for the query: "${query}". Provide a short description for each.
-        Format: JSON array with objects containing "name" and "description".`;
+        const prompt = `Suggest 9 must-visit destinations for the query: "${query}". Provide a short description for each.
+        Format: JSON array with objects containing "name", "description", "location", "duration" (range only), "rating" and "reviews" (number of reviews only).`;
 
         const result = await model.generateContent(prompt);
         const responseText = await result.response.text();

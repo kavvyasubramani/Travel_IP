@@ -64,7 +64,7 @@ const Feature = () => {
     <section className="max_padd_container py-20 xl:py-32 bg-white" id="feature">
         <div className="w-[90%] m-auto">
             <div className="mx-4">
-                <h4 className="bold-18 text-secondary">What We Offer</h4>
+                <h4 className="bold-18 text-blue-500">What We Offer</h4>
                 <h3 className="h3 max-w-lg">Discover the Best Destinations</h3>
                 <p className="max-w-lg">Explore breathtaking locations with personalized travel experiences. Whether you're looking for serene beaches, vibrant cities, or adventurous escapes, we curate the best destinations to make your journey unforgettable!</p>
             </div>
@@ -106,7 +106,7 @@ const FeatureItem = ({ title, URL, des }: FeatureItem) => {
           />
         </div>
         <h4 className="capitalize regular-22 absolute top-6 left-4 text-white">{title}</h4>
-        <p className="regular-18 absolute bottom-6 right-0 bg-tertiary text-white px-4 py-2 rounded-l-full group-hover:bg-secondary group-hover:!pr-8 transition-all duration-100">{des}</p>
+        <p className="regular-18 absolute bottom-6 right-0 bg-tertiary text-white px-4 py-2 rounded-l-full group-hover:bg-blue-500 group-hover:!pr-8 transition-all duration-100">{des}</p>
       </Link>
     </div>
   )

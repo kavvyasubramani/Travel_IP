@@ -46,12 +46,12 @@ export async function GET(req: Request) {
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
         const prompt = `Provide a detailed travel guide for ${destination}, including:
         - Location (country and coordinates)
-        - Top attractions
+        - Top attractions (minimum 6)
         - Best time to visit
         - Activities
         - Local cuisine
         - Travel tips
-        - Top hotels (minimum 3 with name and brief description)
+        - Top hotels (minimum 6 with name and brief description)
 
         Format: JSON object with keys:
         - "location" (object with "country" and "coordinates" {latitude, longitude})
@@ -76,10 +76,11 @@ export async function GET(req: Request) {
             return NextResponse.json({ error: "Invalid JSON received from AI" }, { status: 500 });
         }
 
-        // ✅ Fetch images for attractions and hotels together
+        // ✅ Fetch images for attractions, hotels, and local cuisine
         const attractionNames = response.popular_attractions?.map((a: { name: string }) => a.name) || [];
         const hotelNames = response.hotels?.map((h: { name: string }) => h.name) || [];
-        const allQueries = [...attractionNames, ...hotelNames];
+        const cuisineNames = response.local_cuisine?.map((c: { name: string }) => c.name) || [];
+        const allQueries = [...attractionNames, ...hotelNames, ...cuisineNames];
 
         const imageMap = await fetchImagesFromUnsplash(allQueries);
 
@@ -94,6 +95,13 @@ export async function GET(req: Request) {
         if (response.hotels) {
             response.hotels.forEach((hotel: { name: string; image?: string }) => {
                 hotel.image = imageMap[hotel.name] || "/placeholder.jpg";
+            });
+        }
+
+        // ✅ Assign images to local cuisine
+        if (response.local_cuisine) {
+            response.local_cuisine.forEach((dish: { name: string; image?: string }) => {
+                dish.image = imageMap[dish.name] || "/placeholder.jpg";
             });
         }
 

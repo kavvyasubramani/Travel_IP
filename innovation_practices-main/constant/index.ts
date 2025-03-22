@@ -60,7 +60,7 @@ export const PACKAGES = [
         location: "italy",
         price: "2400",
         URL: "/package1.jpg",
-        des: "Embark on an unforgettable adventure with our all-inclusive tour and travel package",
+        des: "Experience the timeless charm of Florence, the heart of Renaissance art and culture",
         duration: "2 days",
     },
     {
@@ -68,7 +68,7 @@ export const PACKAGES = [
         location: "australia",
         price: "1400",
         URL: "/package2.jpg",
-        des: "Embark on an unforgettable adventure with our all-inclusive tour and travel package",
+        des: "Discover the magic of world-class performances at the iconic Sydney Opera House",
         duration: "2 days",
     },
     {
@@ -76,7 +76,7 @@ export const PACKAGES = [
         location: "france",
         price: "1400",
         URL: "/package3.jpg",
-        des: "Embark on an unforgettable adventure with our all-inclusive tour and travel package",
+        des: "Marvel at the breathtaking views of Paris from the top of the Eiffel Tower",
         duration: "2 days",
     },
     {
@@ -84,7 +84,7 @@ export const PACKAGES = [
         location: "hong kong",
         price: "3000",
         URL: "/package4.jpg",
-        des: "Embark on an unforgettable adventure with our all-inclusive tour and travel package",
+        des: "Soak in the stunning skyline of Hong Kong from the heights of Victoria Peak",
         duration: "2 days",
     },
     {
@@ -92,7 +92,7 @@ export const PACKAGES = [
         location: "brazil",
         price: "2000",
         URL: "/package5.jpg",
-        des: "Embark on an unforgettable adventure with our all-inclusive tour and travel package",
+        des: "Explore the untamed beauty of the Amazon, the world’s largest rainforest",
         duration: "2 days",
     },
     {
@@ -100,7 +100,7 @@ export const PACKAGES = [
         location: "london",
         price: "2400",
         URL: "/package6.jpg",
-        des: "Embark on an unforgettable adventure with our all-inclusive tour and travel package",
+        des: "Dive into London’s vibrant Camden Market, a paradise for food and fashion lovers",
         duration: "2 days",
     },
     {
@@ -108,7 +108,7 @@ export const PACKAGES = [
         location: "indonesia",
         price: "2400",
         URL: "/package7.jpg",
-        des: "Embark on an unforgettable adventure with our all-inclusive tour and travel package",
+        des: "Encounter the legendary Komodo dragons in their wild and rugged island home",
         duration: "2 days",
     },
     {
@@ -116,7 +116,7 @@ export const PACKAGES = [
         location: "switzerland",
         price: "2400",
         URL: "/package8.jpg",
-        des: "Embark on an unforgettable adventure with our all-inclusive tour and travel package",
+        des: "Stroll through Zurich’s charming streets, where history meets modern elegance",
         duration: "2 days",
     },
     {
@@ -124,7 +124,7 @@ export const PACKAGES = [
         location: "india",
         price: "1400",
         URL: "/package9.jpg",
-        des: "Embark on an unforgettable adventure with our all-inclusive tour and travel package",
+        des: "Witness the breathtaking splendor of the Taj Mahal, a symbol of eternal love",
         duration: "2 days",
     },
 ];

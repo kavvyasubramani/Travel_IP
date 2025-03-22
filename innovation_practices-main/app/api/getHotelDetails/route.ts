@@ -37,17 +37,22 @@ export async function GET(req: Request) {
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
         const prompt = `Provide detailed information about the hotel "${hotelName}", including:
         - "name" (string)
+        - "subtitle"(string)
         - "location" (string)
-        - "amenities" (array of strings)
-        - "nearby_attractions" (array of strings)
+        - "famous_dish " (string maximum two word)
+        - "4 amenities maximum" (array of strings)
+        - "nearby_attractions" (array of strings with ratings)
+        - "nearby_hotels" (array of strings )
         - "ratings" (object with "score" (number) and "reviews" (array of strings))
-        - "price_range" (string)
+        - "price_range" (approximate range in dollars)
         - "booking_options" (array of strings)
+        - "reviews" (array of strings with 3 reviews maximum numbered )
+        - "room_types" (array of strings )
         -"rules"(string)
-        -"description"(string)
+        -"description"(string in brief)
         -"address"(string)
-        -"features"(string)
-        
+        -"features "(string)
+
         Format the response as a valid JSON object.`;
 
         // 🛑 Retry API call with backoff if 429 is encountered

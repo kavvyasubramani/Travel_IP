@@ -6,9 +6,9 @@ import { TbStarFilled, TbStarHalfFilled } from "react-icons/tb";
 
 const Packages = () => {
   return (
-    <section className="max_padd_container py-16 xl:py-28 bg-slate-10" id="listing">
+    <section className="max_padd_container py-16 xl:py-28 bg-white" id="listing">
         <div className="mx-4">
-            <h4 className="bold-18 text-secondary">TAKE A LOOK AT THESE OFFERS</h4>
+            <h4 className="bold-18 text-blue-500">TAKE A LOOK AT THESE OFFERS</h4>
             <h3 className="h3 max-w-lg">Exclusive Travel Deals</h3>
             <p className="max-w-lg">Explore top-rated destinations with unbeatable offers. Whether you're seeking a relaxing getaway, a cultural adventure, or a thrilling experience, we bring you the best deals to make your dream trip a reality!</p>
         </div>
@@ -47,10 +47,10 @@ const PackageItem = ({
     duration
 }: PackageItem) => {
     return (
-        <div className="overflow-hidden rounded-tl-xl rounded-tr-xl boder border-slate-200 group">
+        <div className="overflow-hidden rounded-tl-xl rounded-tr-xl border border-gray-300 group"> 
             <Link href={'/'} className="overflow-hidden relative">
                 <Image src={URL} height={366} width={640} alt="img"/>
-                <span className="bold-16 text-white bg-tertiary absolute bottom-0 right-1/2 translate-x-1/2 translate-y-1/2 px-8 py-2 rounded-full group-hover:bg-secondary">$ {price}</span>
+                <span className="bold-16 text-white bg-tertiary absolute bottom-0 right-1/2 translate-x-1/2 translate-y-1/2 px-8 py-2 rounded-full group-hover:bg-blue-500">$ {price}</span>
             </Link>
             <div className="p-4 bg-white">
                 <div className="capitalize medium-22">
