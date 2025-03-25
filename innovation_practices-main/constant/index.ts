@@ -59,9 +59,9 @@ export const PACKAGES = [
         title: "Florence City",
         location: "italy",
         price: "2400",
-        URL: "/package1.jpg",
+        URL: "/package1.jpeg",
         des: "Experience the timeless charm of Florence, the heart of Renaissance art and culture",
-        duration: "2 days",
+        duration: "3-4 days",
     },
     {
         title: "Opera House",
@@ -69,7 +69,7 @@ export const PACKAGES = [
         price: "1400",
         URL: "/package2.jpg",
         des: "Discover the magic of world-class performances at the iconic Sydney Opera House",
-        duration: "2 days",
+        duration: "1-2 days",
     },
     {
         title: "Eiffel Tower",
@@ -77,7 +77,7 @@ export const PACKAGES = [
         price: "1400",
         URL: "/package3.jpg",
         des: "Marvel at the breathtaking views of Paris from the top of the Eiffel Tower",
-        duration: "2 days",
+        duration: "1-2 days",
     },
     {
         title: "Victoria Peak",
@@ -85,7 +85,7 @@ export const PACKAGES = [
         price: "3000",
         URL: "/package4.jpg",
         des: "Soak in the stunning skyline of Hong Kong from the heights of Victoria Peak",
-        duration: "2 days",
+        duration: "1-2 days",
     },
     {
         title: "Amazon Rainforest",
@@ -93,7 +93,7 @@ export const PACKAGES = [
         price: "2000",
         URL: "/package5.jpg",
         des: "Explore the untamed beauty of the Amazon, the world’s largest rainforest",
-        duration: "2 days",
+        duration: "5-7 days",
     },
     {
         title: "Camden Market",
@@ -101,7 +101,7 @@ export const PACKAGES = [
         price: "2400",
         URL: "/package6.jpg",
         des: "Dive into London’s vibrant Camden Market, a paradise for food and fashion lovers",
-        duration: "2 days",
+        duration: "1 day",
     },
     {
         title: "Komodo Park",
@@ -109,7 +109,7 @@ export const PACKAGES = [
         price: "2400",
         URL: "/package7.jpg",
         des: "Encounter the legendary Komodo dragons in their wild and rugged island home",
-        duration: "2 days",
+        duration: "2-3 days",
     },
     {
         title: "Zurich City",
@@ -117,7 +117,7 @@ export const PACKAGES = [
         price: "2400",
         URL: "/package8.jpg",
         des: "Stroll through Zurich’s charming streets, where history meets modern elegance",
-        duration: "2 days",
+        duration: "2-3 days",
     },
     {
         title: "Taj Mahal",
@@ -125,6 +125,6 @@ export const PACKAGES = [
         price: "1400",
         URL: "/package9.jpg",
         des: "Witness the breathtaking splendor of the Taj Mahal, a symbol of eternal love",
-        duration: "2 days",
+        duration: "1-2 days",
     },
 ];

@@ -15,9 +15,9 @@ const Hero = () => {
     };
 
     return (
-        <section className="max_padd_container w-full relative flexCenter" id="home">
+        <section className="max_padd_container w-full h-screen relative flexCenter" id="home">
             {/* Overlay */}
-            <div className="absolute inset-0 bg-[#2f6a7f2f] ml-[-24px] z-10"></div>
+            <div className="absolute inset-0 bg-[#2f6a7f2f] z-10"></div>
 
             {/* Background Video */}
             <video 
@@ -25,12 +25,11 @@ const Hero = () => {
                 muted 
                 autoPlay 
                 loop 
-                className="absolute top-0 left-0 w-screen h-screen object-cover"
-                style={{ width: "100vw", height: "100vh" }}
+                className="absolute inset-0 w-full h-full object-cover block"
             ></video>
 
             {/* Content */}
-            <div className="relative w-full h-max pt-16 pb-12 flex flex-col gap-y-3 justify-center m-auto z-20 lg:pt-48 lg:pb-24">
+            <div className="relative w-full min-h-screen flex flex-col gap-y-3 justify-center m-auto z-20 lg:pt-48 lg:pb-24">
                 <div className="px-0 py-4 text-white text-center">
                     <span className="uppercase regular-18">TRAVEL TO ANY CORNER OF THE WORLD</span>
                     <h2 className="h2 max-w-[777px] m-auto">Make Your Tour Amazing With Us</h2>

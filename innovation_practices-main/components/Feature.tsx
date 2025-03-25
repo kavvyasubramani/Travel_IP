@@ -61,13 +61,12 @@ const Feature = () => {
   }
 
   return (
-    <section className="max_padd_container py-20 xl:py-32 bg-white" id="feature">
-        <div className="w-[90%] m-auto">
-            <div className="mx-4">
-                <h4 className="bold-18 text-blue-500">What We Offer</h4>
-                <h3 className="h3 max-w-lg">Discover the Best Destinations</h3>
-                <p className="max-w-lg">Explore breathtaking locations with personalized travel experiences. Whether you're looking for serene beaches, vibrant cities, or adventurous escapes, we curate the best destinations to make your journey unforgettable!</p>
-            </div>
+    <section className="max_padd_container py-16 xl:py-28 bg-white" id="feature">
+        <div className="mx-4">
+            <h4 className="bold-18 text-blue-500">What We Offer</h4>
+            <h3 className="h3 max-w-lg">Discover the Best Destinations</h3>
+            <p className="max-w-lg">Explore breathtaking locations with personalized travel experiences. Whether you're looking for serene beaches, vibrant cities, or adventurous escapes, we curate the best destinations to make your journey unforgettable!</p>
+      
             {/* container */}
             <div className="pt-12">
               <Slider {...settings}>
