@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaConciergeBell, FaUtensils, FaWifi, FaSwimmingPool, FaSpa, FaParking } from "react-icons/fa";
@@ -19,18 +20,7 @@ interface Hotel {
 
 const FALLBACK_IMAGE = "https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg";
 
-const staticAmenities = [
-    { name: "Free WiFi", icon: <FaWifi className="text-blue-500 text-xl" /> },
-    { name: "Indoor Pool", icon: <FaSwimmingPool className="text-blue-600 text-xl" /> },
-    { name: "Swimming Pool", icon: <FaSwimmingPool className="text-blue-600 text-xl" /> },
-    { name: "Indoor Pool", icon: <FaSwimmingPool className="text-blue-600 text-xl" /> },
-    { name: "Spa", icon: <FaSpa className="text-pink-500 text-xl" /> },
-    { name: "Parking", icon: <FaParking className="text-gray-700 text-xl" /> },
-    { name: "24-Hour Room Service", icon: <FaConciergeBell className="text-green-500 text-xl" /> },
-    { name: "Restaurant", icon: <FaUtensils className="text-orange-500 text-xl" /> }
-];
-
-const HotelDescription = () => {
+const HotelDescriptionContent = () => {
     const searchParams = useSearchParams();
     const name = searchParams.get("name");
     const [details, setDetails] = useState<Hotel | null>(null);
@@ -115,8 +105,9 @@ const HotelDescription = () => {
 
     return (
         <div className="w-full bg-white p-6 shadow-xl">
-            {/* Existing content remains the same */}
-            <>
+            {/* Rest of the existing render logic remains the same */}
+            {/* ... previous rendering code ... */}
+		 <>
                 {/* Hotel Image */}
                 {/* <div className="mb-6">
                     <Image 
@@ -193,7 +184,16 @@ const HotelDescription = () => {
                     </Link>
                 </div>
             </>
+
         </div>
+    );
+};
+
+const HotelDescription = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <HotelDescriptionContent />
+        </Suspense>
     );
 };
 

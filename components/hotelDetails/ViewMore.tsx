@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -9,16 +10,18 @@ interface Hotel {
   images: { fitness: string; pool: string };
 }
 
-const ViewMore = () => {
+const ViewMoreContent = () => {
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
   const [details, setDetails] = useState<Hotel | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (name) {
-      setLoading(true);
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (name && isClient) {
       fetch(`/api/getHotelDetails?name=${encodeURIComponent(name)}`)
         .then((res) => {
           if (!res.ok) throw new Error("Failed to fetch hotel details");
@@ -26,22 +29,28 @@ const ViewMore = () => {
         })
         .then((data) => {
           setDetails(data.details);
-          setError(null);
         })
-        .catch((err) => setError(err.message))
-        .finally(() => setLoading(false));
+        .catch((err) => {
+          console.error(err);
+        });
     }
-  }, [name]);
+  }, [name, isClient]);
 
-  if (error) return <p>Error: {error}</p>;
+  // Fallback to default values to prevent hydration mismatches
+  const famousDish = details?.famous_dish || "Etereo";
+  const fitnessImage = details?.images?.fitness || "https://cache.marriott.com/is/image/marriotts7prod/ak-milak-gym-18957:Wide-Hor?wid=1318&fit=constrain";
+  const poolImage = details?.images?.pool || "https://cache.marriott.com/is/image/marriotts7prod/ak-milak--rooftop-pool-and-d-11124-10924:Wide-Hor?wid=1318&fit=constrain";
+
+  // Prevent rendering until client-side
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <div>
       <div className="relative ml-[-32px] w-[1600px] h-[500px] bg-black text-white flex">
-      {loading && <p></p>}
-      {error && <p className="text-center text-red-600">Error: {error}</p>}
         <div className="flex-1 flex flex-col justify-center px-16">
-          <h2 className="text-5xl font-serif">{details?.famous_dish || "Etereo"}</h2>
+          <h2 className="text-5xl font-serif">{famousDish}</h2>
           <p className="mt-4 text-white-600 max-w-md">
             Discover unique rooftop scene with outdoor pool, amazing views and delicious sharing plates.
           </p>
@@ -50,10 +59,13 @@ const ViewMore = () => {
           </button>
         </div>
         <div className="flex-1 overflow-hidden">
-          <img
-            src={details?.images?.fitness || "https://cache.marriott.com/is/image/marriotts7prod/ak-milak-cocktail-etereo-14239:Classic-Hor?wid=750&fit=constrain"}
+          <Image
+            src={fitnessImage}
             alt="Etereo Rooftop"
+            width={800}
+            height={500}
             className="w-full h-full object-cover"
+            priority
           />
         </div>
       </div>
@@ -63,7 +75,7 @@ const ViewMore = () => {
         <div className="flex flex-col md:flex-row items-center max-w-6xl bg-white shadow-lg rounded-xl overflow-hidden">
           <div className="w-full md:w-1/2">
             <Image
-              src={details?.images?.fitness || "https://cache.marriott.com/is/image/marriotts7prod/ak-milak-gym-18957:Wide-Hor?wid=1318&fit=constrain"}
+              src={fitnessImage}
               alt="Fitness Center"
               width={600}
               height={400}
@@ -86,7 +98,7 @@ const ViewMore = () => {
           </div>
           <div className="w-full md:w-1/2">
             <Image
-              src={details?.images?.pool || "https://cache.marriott.com/is/image/marriotts7prod/ak-milak--rooftop-pool-and-d-11124-10924:Wide-Hor?wid=1318&fit=constrain"}
+              src={poolImage}
               alt="Swimming Pool"
               width={600}
               height={400}
@@ -96,6 +108,14 @@ const ViewMore = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const ViewMore = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ViewMoreContent />
+    </Suspense>
   );
 };
 

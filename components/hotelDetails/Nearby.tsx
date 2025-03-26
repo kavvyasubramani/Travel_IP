@@ -1,9 +1,9 @@
 "use client";
 
+import { Suspense } from 'react';
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import router from "next/router";
 
 interface Hotel {
   nearby_attractions: string[];
@@ -29,31 +29,65 @@ const reviews = [
   },
 ];
 
-const Nearby = () => {
+function NearbyContent() {
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
   const [details, setDetails] = useState<Hotel | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (name) {
       setLoading(true);
       fetch(`/api/getHotelDetails?name=${encodeURIComponent(name)}`)
-        .then((res) => res.json())
-        .then((data) => setDetails(data.details))
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to fetch hotel details");
+          return res.json();
+        })
+        .then((data) => {
+          setDetails(data.details);
+          setError(null);
+        })
+        .catch((err) => {
+          console.error("Error fetching hotel details:", err);
+          setError(err.message);
+        })
         .finally(() => setLoading(false));
     }
   }, [name]);
 
+  if (loading) {
+    return (
+      <div className="bg-white p-6 text-center">
+        <p className="text-gray-600">Loading nearby information...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-white p-6 text-center">
+        <p className="text-red-600">Error: {error}</p>
+      </div>
+    );
+  }
+
+  if (!details) {
+    return (
+      <div className="bg-white p-6 text-center">
+        <p className="text-gray-600">No nearby information available</p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white p-6">
-        {loading && <p></p>}
       {/* Nearby Attractions */}
       <h3 className="text-3xl font-semibold text-gray-700">Nearby Attractions</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-4">
-        {details?.nearby_attractions?.map((attraction, index) => (
+        {details.nearby_attractions?.map((attraction, index) => (
           <div key={index} className="bg-white rounded-lg shadow-lg hover:scale-105">
-            <img
+            <Image
               src={
                 [
                   "https://tse4.mm.bing.net/th?id=OIP.ZRQLcRGiP0kn5iXqv1FZVgHaEo&pid=Api&P=0&h=180",
@@ -63,6 +97,8 @@ const Nearby = () => {
                 ][index] || "https://example.com/default-image.jpg"
               }
               alt={attraction}
+              width={300}
+              height={224}
               className="w-full h-56 object-cover"
             />
             <div className="p-5">
@@ -75,7 +111,7 @@ const Nearby = () => {
       {/* Similar Hotels */}
       <h3 className="text-3xl font-semibold text-gray-700 mt-10">Similar Hotels</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
-        {details?.nearby_hotels?.map((hotel, index) => (
+        {details.nearby_hotels?.map((hotel, index) => (
           <div key={index} className="border rounded-lg shadow-md p-4 hover:shadow-lg">
             <Image
               src="https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg"
@@ -112,6 +148,14 @@ const Nearby = () => {
         ))}
       </div>
     </div>
+  );
+}
+
+const Nearby = () => {
+  return (
+    <Suspense fallback={<div className="bg-white p-6 text-center">Loading nearby information...</div>}>
+      <NearbyContent />
+    </Suspense>
   );
 };
 

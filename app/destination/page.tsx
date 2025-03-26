@@ -1,9 +1,10 @@
 "use client";
+
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
 import Image from "next/image";
-
 interface Coordinates {
     latitude: number;
     longitude: number;
@@ -33,10 +34,7 @@ interface DestinationDetails {
     hotels: Hotel[];
     local_cuisine: Cuisine[];
 }
-
-const FALLBACK_IMAGE_URL = "https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg";
-
-const Destination = () => {
+const DestinationContent = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const name = searchParams.get("name");
@@ -48,7 +46,8 @@ const Destination = () => {
     const hotelsScrollRef = useRef<HTMLDivElement>(null);
     const cuisineScrollRef = useRef<HTMLDivElement>(null);
 
-    // Remove server/client branch and use consistent rendering
+    const FALLBACK_IMAGE_URL = "https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg";
+
     useEffect(() => {
         if (name) {
             const fetchDestinationDetails = async () => {
@@ -82,9 +81,7 @@ const Destination = () => {
             setError("No destination name provided.");
         }
     }, [name]);
-
-    // Remove automatic scrolling to prevent hydration issues
-    const scrollHotels = (direction: "left" | "right") => {
+        const scrollHotels = (direction: "left" | "right") => {
         if (hotelsScrollRef.current) {
             const scrollAmount = direction === "left" ? -300 : 300;
             hotelsScrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
@@ -114,7 +111,13 @@ const Destination = () => {
             setImgSrc(FALLBACK_IMAGE_URL);
         };
 
-        return (
+
+    // ... (keep all existing methods like scrollHotels, scrollCuisine, ErrorSafeImage)
+
+    // Rest of the component remains the same as in the original file
+    // (rendering logic, sections for attractions, hotels, local cuisine)
+    // ... 
+  return (
             <Image 
                 src={imgSrc} 
                 alt={alt} 
@@ -168,10 +171,12 @@ const Destination = () => {
         );
     }
 
+    // Render the full component content
     return (
         <section>
-            {/* Attractions Section */}
-            <div 
+            {/* Existing sections (Attractions, Hotels, Local Cuisine) */}
+            {/* ... (keep the entire original render method) */}
+		 <div 
                 className="w-screen py-24 bg-cover bg-center bg-no-repeat mt-14" 
                 style={{ backgroundImage: "url('/attractions.jpg')" }}
             >
@@ -285,7 +290,20 @@ const Destination = () => {
                     </div>
                 </div>
             </div>
+
         </section>
+    );
+};
+
+const Destination = () => {
+    return (
+        <Suspense fallback={
+            <div className="flex justify-center items-center h-screen">
+                <div className="w-12 h-12 border-4 border-gray-300 border-t-gray-800 rounded-full animate-spin"></div>
+            </div>
+        }>
+            <DestinationContent />
+        </Suspense>
     );
 };
 
