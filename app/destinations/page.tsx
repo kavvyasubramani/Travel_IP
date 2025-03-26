@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -19,7 +20,7 @@ interface Destination {
 
 const FALLBACK_IMAGE_URL = "https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg";
 
-const Destinations = () => {
+const DestinationsList = () => {
     const searchParams = useSearchParams();
     const query = searchParams.get("query");
     const [destinations, setDestinations] = useState<Destination[]>([]);
@@ -28,31 +29,35 @@ const Destinations = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (query !== null && query !== undefined) {
-            setLoading(true);
-            setError(null);
-            fetch(`/api/getDestinations?query=${encodeURIComponent(query)}`)
-                .then((res) => {
+        const fetchDestinations = async () => {
+            if (query !== null && query !== undefined) {
+                setLoading(true);
+                setError(null);
+                try {
+                    const res = await fetch(`/api/getDestinations?query=${encodeURIComponent(query)}`);
+                    
                     if (!res.ok) {
                         throw new Error(`HTTP error! status: ${res.status}`);
                     }
-                    return res.json();
-                })
-                .then((data) => {
+                    
+                    const data = await res.json();
+                    
                     if (!data.destinations || data.destinations.length === 0) {
                         setError("No destinations found for the given query.");
                     }
+                    
                     setDestinations(data.destinations || []);
-                    setLoading(false);
-                })
-                .catch((err) => {
+                } catch (err) {
                     console.error("Failed to fetch destinations:", err);
                     setError("Failed to load destinations. Please try again later.");
+                } finally {
                     setLoading(false);
-                });
-        }
+                }
+            }
+        };
+
+        fetchDestinations();
     }, [query]);
-    
 
     return (
         <section className="flex flex-col items-center justify-center min-h-screen px-6 py-16 border-slate-200">
@@ -129,6 +134,14 @@ const DestinationCard = ({ destination }: { destination: Destination }) => {
                 </div>
             </div>
         </div>
+    );
+};
+
+const Destinations = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <DestinationsList />
+        </Suspense>
     );
 };
 
