@@ -10,11 +10,16 @@ interface Hotel {
     features?: string;
     ratings?: { score: number };
     price_range?: string;
+    pet_policy?: string;
+    parking_rules?:string;
+    amenities?:string[];
 }
 
 const staticAmenities = [
     { name: "Free WiFi", icon: <FaWifi className="text-blue-500 text-xl" /> },
-    { name: "Outdoor Pool", icon: <FaSwimmingPool className="text-blue-600 text-xl" /> },
+    { name: "Indoor Pool", icon: <FaSwimmingPool className="text-blue-600 text-xl" /> },
+    { name: "Swimming Pool", icon: <FaSwimmingPool className="text-blue-600 text-xl" /> },
+    { name: "Indoor Pool", icon: <FaSwimmingPool className="text-blue-600 text-xl" /> },
     { name: "Spa", icon: <FaSpa className="text-pink-500 text-xl" /> },
     { name: "Parking", icon: <FaParking className="text-gray-700 text-xl" /> },
     { name: "24-Hour Room Service", icon: <FaConciergeBell className="text-green-500 text-xl" /> },
@@ -59,16 +64,26 @@ const HotelDescription = () => {
 
                     {/* Features & Amenities */}
                     <div className="grid md:grid-cols-3 gap-8 mt-12 mb-10">
-                        {/* Featured Amenities */}
-                        <div>
+                    <div>
                             <h3 className="text-2xl font-semibold text-gray-900">FEATURED AMENITIES ON-SITE</h3>
                             <div className="grid grid-cols-2 gap-6 mt-6">
-                                {staticAmenities.map((amenity, index) => (
-                                    <div key={index} className="flex items-center text-lg text-gray-800">
-                                        <span className="mr-2">{amenity.icon}</span>
-                                        {amenity.name}
-                                    </div>
-                                ))}
+                                {details.amenities && details.amenities.length > 0 ? (
+                                    details.amenities.map((amenity, index) => (
+                                        <div key={index} className="flex items-center text-lg text-gray-800">
+                                            <span className="mr-2">
+                                                {amenity === "Free WiFi" && <FaWifi className="text-blue-500 text-xl" />}
+                                                {amenity === "Outdoor Pool" && <FaSwimmingPool className="text-blue-600 text-xl" />}
+                                                {amenity === "Spa" && <FaSpa className="text-pink-500 text-xl" />}
+                                                {amenity === "Parking" && <FaParking className="text-gray-700 text-xl" />}
+                                                {amenity === "24-Hour Room Service" && <FaConciergeBell className="text-green-500 text-xl" />}
+                                                {amenity === "Restaurant" && <FaUtensils className="text-orange-500 text-xl" />}
+                                            </span>
+                                            {amenity}
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="text-gray-500">No amenities available</p>
+                                )}
                             </div>
                         </div>
 
@@ -82,17 +97,12 @@ const HotelDescription = () => {
                         <div>
                             <h3 className="text-2xl font-semibold text-gray-900">Pet Policy</h3>
                             <p className="mt-4 text-lg text-gray-800">
-                                Pets Welcome<br />
-                                1 pet 15kg max per room with non-refundable fee<br />
-                                Non-Refundable Pet Fee Per Stay: $125.00<br />
-                                Maximum Pet Weight: 15.0kgs<br />
-                                Maximum Number of Pets in Room: 1
+                                {details.pet_policy}
                             </p>
 
                             <h3 className="mt-6 text-2xl font-semibold text-gray-900">Parking</h3>
                             <p className="mt-4 text-lg text-gray-800">
-                                Valet<br />
-                                Daily: $80.00
+                                {details.parking_rules}
                             </p>
                         </div>
                     </div>

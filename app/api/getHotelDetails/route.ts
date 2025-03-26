@@ -46,12 +46,14 @@ export async function GET(req: Request) {
         - "ratings" (object with "score" (number) and "reviews" (array of strings))
         - "price_range" (approximate range in dollars)
         - "booking_options" (array of strings)
+        - "pet_policy"(string)
         - "reviews" (array of strings with 3 reviews maximum numbered )
         - "room_types" (array of strings )
         -"rules"(string)
         -"description"(string in brief)
         -"address"(string)
         -"features "(string)
+        -"parking_rules"(string)
 
         Format the response as a valid JSON object.`;
 
