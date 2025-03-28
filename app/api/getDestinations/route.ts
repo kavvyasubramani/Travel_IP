@@ -56,9 +56,9 @@ const fetchImage = async (destinationName: string): Promise<string> => {
             `https://api.unsplash.com/search/photos?query=${encodeURIComponent(destinationName)}&client_id=${UNSPLASH_ACCESS_KEY}&per_page=1`
         );
         const data = await response.json();
-        return data.results[0]?.urls?.regular || "/placeholder.jpg";
+        return data.results[0]?.urls?.regular || "/fallback.jpg";
     } catch (error) {
         console.error("Error fetching image:", error);
-        return "/placeholder.jpg";
+        return "/fallback.jpg";
     }
 };

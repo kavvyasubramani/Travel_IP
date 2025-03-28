@@ -110,21 +110,22 @@ function NearbyContent() {
 
       {/* Similar Hotels */}
       <h3 className="text-3xl font-semibold text-gray-700 mt-10">Similar Hotels</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
-        {details.nearby_hotels?.map((hotel, index) => (
-          <div key={index} className="border rounded-lg shadow-md p-4 hover:shadow-lg">
-            <Image
-              src="https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg"
-              alt={hotel}
-              width={300}
-              height={200}
-              className="rounded-md object-cover w-full h-40"
-            />
-            <h4 className="text-lg font-semibold mt-2">{hotel}</h4>
-            <h3 className="text-2xl font-semibold text-green-600">{details.price_range}</h3>
-          </div>
-        ))}
-      </div>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
+  {details.nearby_hotels?.map((hotel, index) => (
+    <div key={index} className="border rounded-lg shadow-md p-4 hover:shadow-lg">
+      <Image
+        src="/room1.jpg"
+        alt={hotel}
+        width={300}
+        height={200}
+        className="rounded-md object-cover w-full h-40"
+      />
+      <h4 className="text-lg font-semibold mt-2">{hotel}</h4>
+      <h3 className="text-2xl font-semibold text-green-600">{details.price_range}</h3>
+    </div>
+  ))}
+</div>
+
 
       {/* Reviews */}
       <h3 className="text-2xl font-semibold text-gray-700 mt-10">Reviews</h3>

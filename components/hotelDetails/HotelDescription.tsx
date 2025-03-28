@@ -18,7 +18,7 @@ interface Hotel {
     image?: string;
 }
 
-const FALLBACK_IMAGE = "https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg";
+const FALLBACK_IMAGE = "fallback.jpg";
 
 const HotelDescriptionContent = () => {
     const searchParams = useSearchParams();
@@ -74,7 +74,7 @@ const HotelDescriptionContent = () => {
                     <strong className="font-bold">Error: </strong>
                     <span className="block sm:inline">{error}</span>
                     <Image 
-                        src={FALLBACK_IMAGE} 
+                        src={"fallback.jpg"} 
                         alt="Fallback hotel image" 
                         width={600} 
                         height={400} 
@@ -92,7 +92,7 @@ const HotelDescriptionContent = () => {
                     <strong className="font-bold">No Details Available: </strong>
                     <span className="block sm:inline">Unable to retrieve hotel information.</span>
                     <Image 
-                        src={FALLBACK_IMAGE} 
+                        src={"fallback.jpg"} 
                         alt="Fallback hotel image" 
                         width={600} 
                         height={400} 

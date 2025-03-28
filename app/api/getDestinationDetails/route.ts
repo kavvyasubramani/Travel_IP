@@ -23,10 +23,10 @@ async function fetchImagesFromUnsplash(queries: string[]): Promise<Record<string
                 const data = await res.json();
 
                 console.log(`🖼️ Fetched image for ${query}:`, data?.urls?.regular);
-                imageMap[query] = data.urls?.regular || "/placeholder.jpg";
+                imageMap[query] = data.urls?.regular || "/fallback.jpg";
             } catch (error) {
                 console.error(`❌ Error fetching image for ${query}:`, error);
-                imageMap[query] = "/placeholder.jpg"; // Fallback image
+                imageMap[query] = "/fallback.jpg"; // Fallback image
             }
         })
     );
@@ -87,21 +87,21 @@ export async function GET(req: Request) {
         // ✅ Assign images to attractions
         if (response.popular_attractions) {
             response.popular_attractions.forEach((attraction: { name: string; image?: string }) => {
-                attraction.image = imageMap[attraction.name] || "/placeholder.jpg";
+                attraction.image = imageMap[attraction.name] || "/fallback.jpg";
             });
         }
 
         // ✅ Assign images to hotels
         if (response.hotels) {
             response.hotels.forEach((hotel: { name: string; image?: string }) => {
-                hotel.image = imageMap[hotel.name] || "/placeholder.jpg";
+                hotel.image = imageMap[hotel.name] || "/fallback.jpg";
             });
         }
 
         // ✅ Assign images to local cuisine
         if (response.local_cuisine) {
             response.local_cuisine.forEach((dish: { name: string; image?: string }) => {
-                dish.image = imageMap[dish.name] || "/placeholder.jpg";
+                dish.image = imageMap[dish.name] || "/fallback.jpg";
             });
         }
 

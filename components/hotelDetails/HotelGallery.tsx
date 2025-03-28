@@ -1,8 +1,7 @@
 "use client";
 
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 
 interface Hotel {
@@ -20,7 +19,7 @@ function HotelGalleryContent() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (name) {
+        if (typeof window !== "undefined" && name) {
             setLoading(true);
             fetch(`/api/getHotelDetails?name=${encodeURIComponent(name)}`)
                 .then((res) => {
@@ -35,6 +34,14 @@ function HotelGalleryContent() {
                 .finally(() => setLoading(false));
         }
     }, [name]);
+
+    if (!name) {
+        return (
+            <div className="w-full bg-white p-6 text-center">
+                <p className="text-gray-600">No hotel selected</p>
+            </div>
+        );
+    }
 
     if (loading) {
         return (
@@ -70,7 +77,7 @@ function HotelGalleryContent() {
                 <div className="grid grid-cols-3 mt-8">
                     <div className="col-span-2 ml-6">
                         <Image
-                            src={details.images?.[0] || "https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg"}
+                            src={"/room1.jpg"}
                             alt="Main hotel image"
                             width={850}
                             height={300}
@@ -81,7 +88,7 @@ function HotelGalleryContent() {
                         {[1, 2].map((index) => (
                             <Image
                                 key={index}
-                                src={details.images?.[index] || "https://www.usatoday.com/gcdn/-mm-/05b227ad5b8ad4e9dcb53af4f31d7fbdb7fa901b/c=0-64-2119-1259/local/-/media/USATODAY/USATODAY/2014/08/13/1407953244000-177513283.jpg"}
+                                src={"/room1.jpg"} 
                                 alt={`Gallery image ${index}`}
                                 width={400}
                                 height={180}
