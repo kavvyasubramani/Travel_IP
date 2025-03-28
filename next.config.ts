@@ -3,7 +3,7 @@ import { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     domains: ["images.unsplash.com",'cache.marriott.com', 
-      'media.cntraveler.com'], // ✅ Allow Unsplash images
+      'media.cntraveler.com',"www.usatoday.com"], // ✅ Allow Unsplash images
     remotePatterns: [
       {
         protocol: "https",
